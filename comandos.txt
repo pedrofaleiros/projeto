@@ -1,0 +1,18 @@
+uvicorn AMP:app --reload --host 0.0.0.0 --port 8000
+
+""" 
+ordenacao nos filtros, escolhe algoritmo de ordenacao -- mostrar tempo
+pesquisar professor pelo nome com:
+    busca binaria num vetor de prof, pesquisa do nome
+    do professor com KMP
+
+
+mostrar tempo em python:
+    
+    import time
+    inicio = time.time()
+    funcao()
+    fim = time.time()
+    print(fim - inicio)
+
+"""
