@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Professores Online</title>
+        <style>
+            body{
+                text-align: center;
+                margin: auto;
+                background-color: rgb(30, 40, 50);
+                color: aliceblue;
+            }
+
+            button{
+                border-radius: 15px;
+                font-size: 20px;
+                padding: 10px;
+                
+            }
+
+            button:hover{
+                color: aliceblue;
+                background-color: rgb(30, 40, 50);
+            }
+
+            button:active{
+                background-color:rgb(60, 60, 60);
+                padding: 12px;
+                color: rgb(255, 153, 0);
+            }
+
+            p{
+                background-color: rgb(60, 60, 60);
+                width: 60%;
+                text-align: center;
+                margin: auto;
+                margin-top: 20px;
+                border: solid 3px aliceblue;
+                color: aliceblue;
+                font-size: 20px;
+            }
+
+            a{
+                margin: 15px;
+                margin-top: 25px;
+                color:rgb(133, 215, 07);
+            }
+
+            #voltar{
+                background-color: rgb(20, 25, 30);
+                padding: 7px;
+                text-decoration: none;
+                border-radius: 7px;
+                margin: 10px;
+            }
+
+            #voltar:hover{
+                background-color: rgb(0, 5, 10);
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+        <a href="index.html" id="voltar">Página Principal</a>
+
+        <h1 id='texto'>texto aqui</h1>
+        <button onclick="mostrar()">Mostre-me</button>
+
+            
+        </ul>
+        <p id="p1"></p>
+        <p id="p2"></p>
+        <p id="p3"></p>
+        <p id="p4"></p>
+        <p id="p5"></p>
+
+        <script>
+function mostra_na_tela(dados){
+    let p = document.getElementById('p1')
+    p.innerText = `${dados[0]['nome']} - ${dados[0]['materia']} - ${dados[0]['contato']}`;
+    
+    p = document.getElementById('p2')
+    p.innerText = `${dados[1]['nome']} - ${dados[1]['materia']} - ${dados[1]['contato']}`;
+    
+    p = document.getElementById('p3')
+    p.innerText = `${dados[2]['nome']} - ${dados[2]['materia']} - ${dados[2]['contato']}`;
+    
+    p = document.getElementById('p4')
+    p.innerText = `${dados[3]['nome']} - ${dados[3]['materia']} - ${dados[3]['contato']}`;
+    
+    p = document.getElementById('p5')
+    p.innerText = `${dados[4]['nome']} - ${dados[4]['materia']} - ${dados[4]['contato']}`;
+
+}
+
+function mostrar(){
+
+    const url = 'http://0.0.0.0:8000/professor'
+
+    fetch('http://localhost:8000/professor')
+    .then(function(response){
+        return response.json();
+    })
+    .then(function(data){
+        var dados = data['resposta']
+        // console.log(dados)
+        
+        /* for(let i = 0; i < dados.length; i+=1){
+            console.log(dados[i])
+        } */
+
+        mostra_na_tela(dados)
+        
+    })
+}
+        </script>
+    </body>
+</html>
