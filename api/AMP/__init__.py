@@ -80,7 +80,6 @@ def abre_conexao(nome_db):
         host = '127.0.0.1',
         user = 'root',
         password = '',
-    #muda aqui
         db = nome_db,
         charset = 'utf8mb4',
         cursorclass = pymysql.cursors.DictCursor
@@ -124,6 +123,7 @@ async def recupera_prof():
     fecha_conexao(conexao, cursor)
 
     algorimo = qual_algoritmo()
+    algorimo = '0'
 
     inicio = 0
     fim = 0
