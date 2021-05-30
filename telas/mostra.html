@@ -66,7 +66,10 @@
         <a href="index.html" id="voltar">Página Principal</a>
 
         <h1 id='texto'>texto aqui</h1>
-        <button onclick="mostrar()">Mostre-me</button>
+        <button onclick="mostrar()">QuickSort</button>
+        <button onclick="mostrar()">BubbleSort</button>
+
+        <h2 id="tempo"></h2>
 
         </ul>
         <p id="p1"></p>
@@ -104,16 +107,20 @@ function mostrar(){
     })
     .then(function(data){
         var dados = data['resposta']
-        // console.log(dados)
-        
+        let tempo = data['tempo']
         /* for(let i = 0; i < dados.length; i+=1){
             console.log(dados[i])
         } */
 
         mostra_na_tela(dados)
+
+        let texto_tempo = document.getElementById('tempo')
+
+        texto_tempo.innerText = tempo + ' segundos'
         
     })
 }
+
         </script>
     </body>
 </html>

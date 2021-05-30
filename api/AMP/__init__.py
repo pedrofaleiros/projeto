@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 import pymysql.cursors
 from fastapi.responses import JSONResponse
-from AMP.modelos.professor import ProfessorCadastro
+from AMP.modelos.professor import ProfessorCadastro, AlgoritmoEscolhido
 from fastapi.middleware.cors import CORSMiddleware
 import time
 from AMP.algoritmos import quicksort, bubblesort
@@ -91,6 +91,17 @@ def fecha_conexao(conexao, cursor):
     cursor.close()
     conexao.close()
 
+def qual_algoritmo():
+    conexao = abre_conexao('projetoamp')
+    cursor = conexao.cursor()
+
+    cursor.execute("select * from escolha where id='1';")
+    dados = cursor.fetchall()
+
+    return dados[0]['algoritmo']
+
+
+
 app = FastAPI()
 
 app.add_middleware(
@@ -106,16 +117,24 @@ async def recupera_prof():
     conexao = abre_conexao('projetoamp')
     cursor = conexao.cursor()
 
+
     cursor.execute("select * from professor;")
     dados = cursor.fetchall()
 
     fecha_conexao(conexao, cursor)
 
-    inicio = time.time()
+    algorimo = qual_algoritmo()
 
-    quicksort(dados, 0, len(dados)-1)
-    
-    fim = time.time()
+    inicio = 0
+    fim = 0
+    if algorimo == '0':
+        inicio = time.time()
+        quicksort(dados, 0, len(dados)-1)
+        fim = time.time()
+    else:
+        inicio = time.time()
+        bubblesort(dados, len(dados))
+        fim = time.time()
 
     tempo = fim-inicio
 
@@ -135,10 +154,21 @@ async def cadastra_prof(professor:ProfessorCadastro):
 
     return {'id_cadastrado':id_retorno}
 
-@app.get('/escolha')
-async def escolhe_algoritmo():
-    return {'algoritmo':0, 'filtro':0}
 
-@app.post('/escolha')
-async def muda_algoritmo():
-    return {'algoritmo':10, 'filtro':10}
+""" @app.get('/escolha')
+async def escolha_algoritmo():
+    return {'status':'ok'}
+
+@app.post('/escolha', status_code=201)
+async def muda_algoritmo(escolha:AlgoritmoEscolhido):
+    conexao = abre_conexao('projetoamp')
+    cursor = conexao.cursor()
+
+    print(escolha)
+
+    query = f'update escolha set algoritmo = "{escolha.algorimo}", filtro="0" where id="1";'
+
+    cursor.execute(query)
+    fecha_conexao(conexao, cursor)
+
+    return {"status":'ok'} """

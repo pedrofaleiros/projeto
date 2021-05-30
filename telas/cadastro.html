@@ -177,9 +177,10 @@ async function cadastrar(){
     let contato = document.getElementById('contato').value
     let obs = document.getElementById('obs').value
 
+    
     if (nome.length > 1 & materia.length > 1){
         if(is_number(contato)){
-
+            
             let professor = {nome, preco, materia, contato, obs}
             
             await fetch('http://127.0.0.1:8000/professor', {method:'post', 
