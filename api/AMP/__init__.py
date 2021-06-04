@@ -23,14 +23,14 @@ def fecha_conexao(conexao, cursor):
     cursor.close()
     conexao.close()
 
-def qual_algoritmo():
+""" def qual_algoritmo():
     conexao = abre_conexao('projetoamp')
     cursor = conexao.cursor()
 
     cursor.execute("select * from escolha where id='1';")
     dados = cursor.fetchall()
 
-    return dados[0]['algoritmo']
+    return dados[0]['algoritmo'] """
 
 app = FastAPI()
 
@@ -47,13 +47,12 @@ async def recupera_prof():
     conexao = abre_conexao('projetoamp')
     cursor = conexao.cursor()
 
-
     cursor.execute("select * from professor;")
     dados = cursor.fetchall()
 
     fecha_conexao(conexao, cursor)
 
-    algorimo = qual_algoritmo()
+    # algorimo = qual_algoritmo()
     algorimo = '0'
 
     inicio = 0
@@ -69,7 +68,7 @@ async def recupera_prof():
 
     tempo = fim-inicio
 
-    return {"resposta":dados, 'tempo':tempo}
+    return {"resposta":dados, 'tempo':tempo, 'numero':len(dados)}
 
 @app.post('/professor', status_code=201)
 async def cadastra_prof(professor:ProfessorCadastro):
@@ -84,7 +83,6 @@ async def cadastra_prof(professor:ProfessorCadastro):
     fecha_conexao(conexao, cursor)
 
     return {'id_cadastrado':id_retorno}
-
 
 """ @app.get('/escolha')
 async def escolha_algoritmo():

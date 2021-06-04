@@ -29,17 +29,6 @@
                 color: rgb(255, 153, 0);
             }
 
-            p{
-                background-color: rgb(60, 60, 60);
-                width: 60%;
-                text-align: center;
-                margin: auto;
-                margin-top: 20px;
-                border: solid 3px aliceblue;
-                color: aliceblue;
-                font-size: 20px;
-            }
-
             a{
                 margin: 15px;
                 margin-top: 25px;
@@ -58,6 +47,34 @@
                 background-color: rgb(0, 5, 10);
             }
 
+            #total{
+                color:red;
+            }
+
+            ul{
+                text-align: center;
+            }
+
+            li{
+                list-style: none;
+                border: solid 2px rgb(240, 240, 240);
+                margin: 5px 15px;
+                padding: 10px;
+                font-size: 20px;
+                border-radius: 10px;
+            }
+
+            p{
+                border: solid 2px rgb(240, 240, 240);
+                background-color: rgb(20, 25, 30);
+                font-size: 30px;
+                padding: 5px 0px;
+            }
+
+            h3{
+                color: rgb(255, 153, 0);
+            }
+
         </style>
 
     </head>
@@ -69,57 +86,59 @@
         <button onclick="mostrar()">QuickSort</button>
         <button onclick="mostrar()">BubbleSort</button>
 
+        <h2 id="total"></h2>
         <h2 id="tempo"></h2>
 
+        <ul id="pessoas">
+
         </ul>
-        <p id="p1"></p>
-        <p id="p2"></p>
-        <p id="p3"></p>
-        <p id="p4"></p>
-        <p id="p5"></p>
 
         <script>
-function mostra_na_tela(dados){
-    let p = document.getElementById('p1')
-    p.innerText = `${dados[0]['nome']} - ${dados[0]['materia']} - ${dados[0]['contato']} - Preço: R$${dados[0]['preco']}`;
-    
-    p = document.getElementById('p2')
-    p.innerText = `${dados[1]['nome']} - ${dados[1]['materia']} - ${dados[1]['contato']} - Preço: R$${dados[1]['preco']}`;
-    
-    p = document.getElementById('p3')
-    p.innerText = `${dados[2]['nome']} - ${dados[2]['materia']} - ${dados[2]['contato']} - Preço: R$${dados[2]['preco']}`;
-    
-    p = document.getElementById('p4')
-    p.innerText = `${dados[3]['nome']} - ${dados[3]['materia']} - ${dados[3]['contato']} - Preço: R$${dados[3]['preco']}`;
-    
-    p = document.getElementById('p5')
-    p.innerText = `${dados[4]['nome']} - ${dados[4]['materia']} - ${dados[4]['contato']} - Preço: R$${dados[4]['preco']}`;
+                    
+        function mostra_na_tela(dados, num_cadastros){
+            
+            let pessoas = document.getElementById('pessoas')
+            for(let i = 0; i < num_cadastros; i += 1){
+                let item = document.createElement('li')
+                let nome = document.createElement('p')
+                let preco = document.createElement('h3')
 
-}
+                nome.innerHTML = `${dados[i]['nome']}`
+                preco.innerHTML = `Preço: R$${dados[i]['preco']}`
 
-function mostrar(){
+                item.appendChild(nome)
+                
+                item.innerHTML = item.innerHTML + `${dados[i]['materia']} - Contato: ${dados[i]['contato']}`
+                item.appendChild(preco)
+                
+                pessoas.appendChild(item)
+            }
+        }
 
-    const url = 'http://0.0.0.0:8000/professor'
+        function mostrar(){
 
-    fetch('http://localhost:8000/professor')
-    .then(function(response){
-        return response.json();
-    })
-    .then(function(data){
-        var dados = data['resposta']
-        let tempo = data['tempo']
-        /* for(let i = 0; i < dados.length; i+=1){
-            console.log(dados[i])
-        } */
+            const url = 'http://0.0.0.0:8000/professor'
 
-        mostra_na_tela(dados)
+            fetch('http://localhost:8000/professor')
+            .then(function(response){
+                return response.json();
+            })
+            .then(function(data){
+                var dados = data['resposta']
+                let tempo = data['tempo']
+                let n_cad = data['numero']
+                
+                let texto_tempo = document.getElementById('tempo')
+                let num_cadastros = document.getElementById('total')
 
-        let texto_tempo = document.getElementById('tempo')
+                mostra_na_tela(dados, n_cad)
 
-        texto_tempo.innerText = tempo + ' segundos'
-        
-    })
-}
+                texto_tempo.innerText = tempo + ' segundos para ordenar'
+                num_cadastros.innerText = n_cad + ' cadastros'
+                
+            });
+        }
+
         </script>
     </body>
 </html>
