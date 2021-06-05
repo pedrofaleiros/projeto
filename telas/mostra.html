@@ -83,8 +83,8 @@
         <a href="index.html" id="voltar">Página Principal</a>
 
         <h1 id='texto'>texto aqui</h1>
-        <button onclick="mostrar()">QuickSort</button>
-        <button onclick="mostrar()">BubbleSort</button>
+        <button onclick="mostrar_quick()">QuickSort</button>
+        <button onclick="mostrar_bubble()">BubbleSort</button>
 
         <h2 id="total"></h2>
         <h2 id="tempo"></h2>
@@ -93,53 +93,6 @@
 
         </ul>
 
-        <script>
-                    
-        function mostra_na_tela(dados, num_cadastros){
-            
-            let pessoas = document.getElementById('pessoas')
-            for(let i = 0; i < num_cadastros; i += 1){
-                let item = document.createElement('li')
-                let nome = document.createElement('p')
-                let preco = document.createElement('h3')
-
-                nome.innerHTML = `${dados[i]['nome']}`
-                preco.innerHTML = `Preço: R$${dados[i]['preco']}`
-                
-                item.appendChild(nome)
-                
-                item.innerHTML = item.innerHTML + `${dados[i]['materia']} - Contato: ${dados[i]['contato']}`
-                item.appendChild(preco)
-                
-                pessoas.appendChild(item)
-            }
-        }
-        
-        function mostrar(){
-
-            const url = 'http://0.0.0.0:8000/professor'
-
-            fetch('http://localhost:8000/professor')
-            .then(function(response){
-                return response.json();
-            })
-            .then(function(data){
-                var dados = data['resposta']
-                let tempo = data['tempo']
-                let n_cad = data['numero']
-                
-                let texto_tempo = document.getElementById('tempo')
-                let num_cadastros = document.getElementById('total')
-
-                mostra_na_tela(dados, n_cad)
-
-                texto_tempo.innerText = tempo + ' segundos para ordenar'
-                num_cadastros.innerText = n_cad + ' cadastros'
-
-                
-            });
-        }
-
-        </script>
+        <script src="mostrar_dados.js"></script>
     </body>
 </html>

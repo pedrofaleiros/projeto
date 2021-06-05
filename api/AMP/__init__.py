@@ -6,8 +6,6 @@ from fastapi.middleware.cors import CORSMiddleware
 import time
 from AMP.algoritmos import quicksort, bubblesort
 
-#conectar banco de dados e fazer get e post
-
 def abre_conexao(nome_db):
     conexao = pymysql.connect(
         host = '127.0.0.1',
@@ -43,22 +41,7 @@ async def recupera_prof():
 
     fecha_conexao(conexao, cursor)
 
-    algoritmo = '0'
-
-    inicio = 0
-    fim = 0
-    if algoritmo == '0':
-        inicio = time.time()
-        quicksort(dados, 0, len(dados)-1)
-        fim = time.time()
-    else:
-        inicio = time.time()
-        bubblesort(dados, len(dados))
-        fim = time.time()
-
-    tempo = fim-inicio
-
-    return {"resposta":dados, 'tempo':tempo, 'numero':len(dados)}
+    return {"resposta":dados, 'tempo':0, 'numero':len(dados)}
 
 @app.post('/professor', status_code=201)
 async def cadastra_prof(professor:ProfessorCadastro):
