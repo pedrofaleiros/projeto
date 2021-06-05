@@ -19,7 +19,7 @@ if conexao:
     conexao.close()
 
 for dado in dados:
-    print(dado['nome'], end=' - ')
-    print(dado['contato'])
+    print(dado['nome'])
 
+print(len(dados))
 

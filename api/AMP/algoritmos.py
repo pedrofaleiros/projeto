@@ -4,12 +4,14 @@ def quicksort(pessoas, inicio, final):
         return
 
     i = inicio
+    # pivo = pessoas[i]['nome']
     pivo = pessoas[i]['preco']
     j = final
 
     while j != i:
         if i > j:
             if pessoas[j]['preco'] > pivo:
+            # if pessoas[j]['nome'] > pivo:
                 aux = pessoas[i]['nome']
                 pessoas[i]['nome'] = pessoas[j]['nome']
                 pessoas[j]['nome'] = aux
@@ -34,6 +36,7 @@ def quicksort(pessoas, inicio, final):
 
         else:
             if pessoas[j]['preco'] < pivo:
+            # if pessoas[j]['nome'] < pivo:
                 aux = pessoas[i]['nome']
                 pessoas[i]['nome'] = pessoas[j]['nome']
                 pessoas[j]['nome'] = aux

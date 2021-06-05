@@ -17,7 +17,7 @@ materias = ['portugues', 'matematica', 'biologia', 'historia', 'geografia', 'art
 if conexao:
     print('deu certo')    
 
-    for i in range(1500,3000):
+    for i in range(1000,1500):
         nome = f'professor{i+1}'
         preco = 50+randint(1, 100)
         materia = materias[randint(0, len(materias)-1)]

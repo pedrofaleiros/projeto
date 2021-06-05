@@ -23,15 +23,6 @@ def fecha_conexao(conexao, cursor):
     cursor.close()
     conexao.close()
 
-""" def qual_algoritmo():
-    conexao = abre_conexao('projetoamp')
-    cursor = conexao.cursor()
-
-    cursor.execute("select * from escolha where id='1';")
-    dados = cursor.fetchall()
-
-    return dados[0]['algoritmo'] """
-
 app = FastAPI()
 
 app.add_middleware(
@@ -52,12 +43,11 @@ async def recupera_prof():
 
     fecha_conexao(conexao, cursor)
 
-    # algorimo = qual_algoritmo()
-    algorimo = '0'
+    algoritmo = '0'
 
     inicio = 0
     fim = 0
-    if algorimo == '0':
+    if algoritmo == '0':
         inicio = time.time()
         quicksort(dados, 0, len(dados)-1)
         fim = time.time()
@@ -84,20 +74,39 @@ async def cadastra_prof(professor:ProfessorCadastro):
 
     return {'id_cadastrado':id_retorno}
 
-""" @app.get('/escolha')
-async def escolha_algoritmo():
-    return {'status':'ok'}
 
-@app.post('/escolha', status_code=201)
-async def muda_algoritmo(escolha:AlgoritmoEscolhido):
+@app.get('/profquick')
+async def recupera_prof_quick():
     conexao = abre_conexao('projetoamp')
     cursor = conexao.cursor()
 
-    print(escolha)
+    cursor.execute("select * from professor;")
+    dados = cursor.fetchall()
 
-    query = f'update escolha set algoritmo = "{escolha.algorimo}", filtro="0" where id="1";'
-
-    cursor.execute(query)
     fecha_conexao(conexao, cursor)
 
-    return {"status":'ok'} """
+    inicio = time.time()
+    quicksort(dados, 0, len(dados)-1)
+    fim = time.time()
+
+    tempo = fim-inicio
+
+    return {"resposta":dados, 'tempo':tempo, 'numero':len(dados)}
+
+@app.get('/profbubble')
+async def recupera_prof_bubble():
+    conexao = abre_conexao('projetoamp')
+    cursor = conexao.cursor()
+
+    cursor.execute("select * from professor;")
+    dados = cursor.fetchall()
+
+    fecha_conexao(conexao, cursor)
+
+    inicio = time.time()
+    bubblesort(dados, len(dados))
+    fim = time.time()
+
+    tempo = fim-inicio
+
+    return {"resposta":dados, 'tempo':tempo, 'numero':len(dados)}
