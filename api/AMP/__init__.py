@@ -58,7 +58,7 @@ async def cadastra_prof(professor:ProfessorCadastro):
     return {'id_cadastrado':id_retorno}
 
 
-@app.get('/profquick')
+@app.get('/prof_quick_preco')
 async def recupera_prof_quick():
     conexao = abre_conexao('projetoamp')
     cursor = conexao.cursor()
@@ -69,14 +69,32 @@ async def recupera_prof_quick():
     fecha_conexao(conexao, cursor)
 
     inicio = time.time()
-    quicksort(dados, 0, len(dados)-1)
+    quicksort(dados, 0, len(dados)-1, 'preco')
     fim = time.time()
 
     tempo = fim-inicio
 
     return {"resposta":dados, 'tempo':tempo, 'numero':len(dados)}
 
-@app.get('/profbubble')
+@app.get('/prof_quick_nome')
+async def recupera_prof_quick():
+    conexao = abre_conexao('projetoamp')
+    cursor = conexao.cursor()
+
+    cursor.execute("select * from professor;")
+    dados = cursor.fetchall()
+
+    fecha_conexao(conexao, cursor)
+
+    inicio = time.time()
+    quicksort(dados, 0, len(dados)-1, 'nome')
+    fim = time.time()
+
+    tempo = fim-inicio
+
+    return {"resposta":dados, 'tempo':tempo, 'numero':len(dados)}
+
+@app.get('/prof_bubble_preco')
 async def recupera_prof_bubble():
     conexao = abre_conexao('projetoamp')
     cursor = conexao.cursor()
@@ -87,7 +105,25 @@ async def recupera_prof_bubble():
     fecha_conexao(conexao, cursor)
 
     inicio = time.time()
-    bubblesort(dados, len(dados))
+    bubblesort(dados, len(dados),'preco')
+    fim = time.time()
+
+    tempo = fim-inicio
+
+    return {"resposta":dados, 'tempo':tempo, 'numero':len(dados)}
+
+@app.get('/prof_bubble_nome')
+async def recupera_prof_bubble():
+    conexao = abre_conexao('projetoamp')
+    cursor = conexao.cursor()
+
+    cursor.execute("select * from professor;")
+    dados = cursor.fetchall()
+
+    fecha_conexao(conexao, cursor)
+
+    inicio = time.time()
+    bubblesort(dados, len(dados),'nome')
     fim = time.time()
 
     tempo = fim-inicio

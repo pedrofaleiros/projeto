@@ -75,6 +75,10 @@
                 color: rgb(255, 153, 0);
             }
 
+            input{
+                color: aliceblue;
+            }
+
         </style>
 
     </head>
@@ -83,8 +87,16 @@
         <a href="index.html" id="voltar">Página Principal</a>
 
         <h1 id='texto'>texto aqui</h1>
-        <button onclick="mostrar_quick()">QuickSort</button>
-        <button onclick="mostrar_bubble()">BubbleSort</button>
+        <button onclick="quicksort()">QuickSort</button>
+        <button onclick="bubblesort()">BubbleSort</button>
+        
+        <div id="escolhas">
+            <br>
+            <input type="checkbox" id='nome' name="nome">
+            <label for="nome">Ordem Alfabética</label>
+            <input type="checkbox" id='preco' name="preco">
+            <label for="preco">Ordenar por Preço</label>
+        </div>
 
         <h2 id="total"></h2>
         <h2 id="tempo"></h2>

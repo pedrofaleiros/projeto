@@ -22,9 +22,83 @@ function mostra_na_tela(dados, num_cadastros){
     }
 }
 
+function mostrar_dados(algoritmo, filtro){
+
+    let url = `http://localhost:8000/prof_${algoritmo}_${filtro}`
+
+    fetch(url)
+    .then(function(response){
+        return response.json();
+    })
+    .then(function(data){
+
+    var dados = data['resposta']
+    let tempo = data['tempo']
+    let n_cad = data['numero']
+
+    let texto_tempo = document.getElementById('tempo')
+    let num_cadastros = document.getElementById('total')
+
+    mostra_na_tela(dados, n_cad)
+
+    texto_tempo.innerText = tempo + ' segundos para ordenar'
+    num_cadastros.innerText = n_cad + ' cadastros'
+
+    });
+
+
+}
+
+function quicksort(){
+
+    let check = document.getElementsByName('nome')
+    let check2 = document.getElementsByName('preco')
+    
+    if(check[0].checked == true){
+        
+        if(check2[0].checked == true){
+            alert('Escolha apenas um filtro')
+        }else{
+            mostrar_dados('quick', 'nome')
+        }
+    }else{
+        if(check2[0].checked == true){
+            mostrar_dados('quick', 'preco')
+        }else{
+            alert('Escolha um Filtro')
+        }
+    }
+    
+    
+}
+
+function bubblesort(){
+    
+    let check = document.getElementsByName('nome')
+    let check2 = document.getElementsByName('preco')
+    
+    if(check[0].checked == true){
+        if(check2[0].checked == true){
+            alert('Escolha apenas um filtro')
+        }else{
+            mostrar_dados('bubble', 'nome')
+        }
+    }else{
+        if(check2[0].checked == true){
+            mostrar_dados('bubble', 'preco')
+        }else{
+            alert('Escolha um Filtro')
+        }
+    }
+}
+
+
+
+
+
 function mostrar_quick(){
 
-    let url = 'http://localhost:8000/profquick'
+    let url = 'http://localhost:8000/prof_quick_preco'
 
     fetch(url)
     .then(function(response){
@@ -49,7 +123,7 @@ function mostrar_quick(){
 
 function mostrar_bubble(){
 
-    let url = 'http://localhost:8000/profbubble'
+    let url = 'http://localhost:8000/prof_bubble_preco'
 
     fetch(url)
     .then(function(response){
