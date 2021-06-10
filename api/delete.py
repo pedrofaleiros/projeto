@@ -14,7 +14,7 @@ cc = conexao.cursor()
 if conexao:
     print('deu certo')    
 
-    for i in range(5000, 5001):
+    for i in range(800, 987):
         nome = 'professor'+str(i)
         cc.execute(f'delete from professor where nome="{nome}"')
         print(i)
