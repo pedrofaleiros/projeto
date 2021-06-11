@@ -4,8 +4,8 @@ def quicksort(pessoas, inicio, final, filtro='preco'):
         return
 
     i = inicio
-    pivo = pessoas[i][filtro]
     j = final
+    pivo = pessoas[i][filtro]
 
     while j != i:
         if i > j:
@@ -31,12 +31,8 @@ def bubblesort(pessoas, tamanho, filtro='preco'):
     i = 0
     while i < tamanho-1 and trocou:
         trocou = False
-        j = 0
-        while j < tamanho-1-i:
+        for j in range(0, tamanho-1):
             if pessoas[j][filtro] > pessoas[j+1][filtro]:
                 trocou = True
-
                 pessoas[j], pessoas[j+1] = pessoas[j+1], pessoas[j]
-
-            j += 1
         i += 1

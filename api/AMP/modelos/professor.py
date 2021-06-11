@@ -7,8 +7,3 @@ class ProfessorCadastro(BaseModel):
     materia:str
     contato:str
     obs:str
-
-class AlgoritmoEscolhido(BaseModel):
-    id:str
-    algorimo:str
-    filtro:str

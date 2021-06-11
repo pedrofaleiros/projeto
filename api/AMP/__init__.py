@@ -1,10 +1,10 @@
 from fastapi import FastAPI
 import pymysql.cursors
 from fastapi.responses import JSONResponse
-from AMP.modelos.professor import ProfessorCadastro, AlgoritmoEscolhido
+from AMP.modelos.professor import ProfessorCadastro
 from fastapi.middleware.cors import CORSMiddleware
-import time
 from AMP.algoritmos import quicksort, bubblesort
+import time
 
 def abre_conexao(nome_db):
     conexao = pymysql.connect(
@@ -35,28 +35,24 @@ app.add_middleware(
 async def recupera_prof():
     conexao = abre_conexao('projetoamp')
     cursor = conexao.cursor()
-
     cursor.execute("select * from professor;")
     dados = cursor.fetchall()
-
     fecha_conexao(conexao, cursor)
-
     return {"resposta":dados, 'tempo':0, 'numero':len(dados)}
 
 @app.post('/professor', status_code=201)
 async def cadastra_prof(professor:ProfessorCadastro):
     conexao = abre_conexao('projetoamp')
     cursor = conexao.cursor()
-    valor = professor.preco
 
     query = f'insert into professor(nome, preco, materia, contato, obs) values("{professor.nome}", {professor.preco}, "{professor.materia}", "{professor.contato}", "{professor.obs}");'
-
     cursor.execute(query)
+
     id_retorno = cursor.lastrowid
+
     fecha_conexao(conexao, cursor)
 
     return {'id_cadastrado':id_retorno}
-
 
 @app.get('/prof_quick_preco')
 async def recupera_prof_quick():
